@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'net.YaRh'
-version = '1.1'
+version = '1.1.0'
 
 repositories {
     mavenCentral()
@@ -22,19 +22,18 @@ test {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
+        register('mavenJava', MavenPublication) {
+            artifact jar
         }
     }
 
     repositories {
         maven {
-            name = "GitHub"
-            url = uri("https://maven.pkg.github.com/Yet-Another-Rabbit-Hole/CheapLog")
-
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/Yet-Another-Rabbit-Hole/CheapLog"
             credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
