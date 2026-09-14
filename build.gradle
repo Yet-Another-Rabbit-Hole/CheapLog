@@ -24,6 +24,7 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             artifact jar
+            artifactId = 'cheaplog'
         }
     }
 
