@@ -1,5 +1,7 @@
 package net.YaRh.CheapLog;
 
+import net.YaRh.ConvConf.Switch;
+
 import static net.YaRh.CheapLog.Config.*;
 
 public final class Logging {
