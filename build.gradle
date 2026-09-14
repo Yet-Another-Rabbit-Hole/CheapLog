@@ -29,12 +29,12 @@ publishing {
 
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/DEIN_GITHUB_NAME/DEIN_REPOSITORY")
+            name = "GitHub"
+            url = uri("https://maven.pkg.github.com/Yet-Another-Rabbit-Hole/CheapLog")
 
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }
