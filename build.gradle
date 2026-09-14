@@ -39,7 +39,7 @@ publishing {
     }
 }
 
-tasks.register("update") {
+tasks.register("updateLocal") {
     dependsOn testClasses
     dependsOn jar
     dependsOn javadoc
