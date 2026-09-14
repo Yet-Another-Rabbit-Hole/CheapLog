@@ -2,6 +2,8 @@ package net.YaRh.CheapLog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Config for which types of logs should actually be displayed
@@ -74,6 +76,39 @@ public final class Config {
 		}
 	}
 	
+	public static final class Attribute<T> {
+		
+		private T value = null;
+		private boolean changeable = true;
+		
+		public Attribute(T value, boolean changeable) {
+			this.value = value;
+			this.changeable = changeable;
+		}
+		public Attribute(T value) {
+			this.value = value;
+		}
+		public Attribute() {}
+		
+		public void setFinal() {
+			this.changeable = false;
+		}
+		
+		public T get() {
+			return value;
+		}
+		public boolean isChangeable() {
+			return changeable;
+		}
+		
+		public void set(T value) {
+			if (!changeable)
+				throw new IllegalStateException("You attempted to set an unchangeable attribute");
+				
+			this.value = value;
+		}
+	}
+	
 	public static Switch logging = new Switch(true);
 	public static Switch information = new Switch(false);
 	public static Switch errors = new Switch(true);
@@ -89,6 +124,9 @@ public final class Config {
 	 * Determines if the log should include the thread of the logging call
 	 */
 	public static Switch thread = new Switch(false);
+	
+	public static Attribute<Consumer<String>> fullLineOutput = new Attribute<>(System.out::println);
+	public static Attribute<Consumer<String>> inLineOutput = new Attribute<>(System.out::print);
 	
 	public static void enableAll() {
 		Switch.enableAll();

@@ -93,17 +93,17 @@ public final class Logging {
 		}
 		
 		public void println(String msg) {
-			if (swtch.isActive()) System.out.println(decoration() + msg + defaultColor);
+			if (swtch.isActive()) fullLineOutput.get().accept(decoration() + msg + defaultColor);
 		}
 		public void println(String msg, Object... args) {
-			if (swtch.isActive()) System.out.println(decoration() + msg.formatted(args) + defaultColor);
+			if (swtch.isActive()) fullLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor);
 		}
 		
 		public void print(String msg) {
-			if (swtch.isActive()) System.out.print(decoration() + msg + defaultColor);
+			if (swtch.isActive()) inLineOutput.get().accept(decoration() + msg + defaultColor);
 		}
 		public void print(String msg, Object... args) {
-			if (swtch.isActive()) System.out.print(decoration() + msg.formatted(args) + defaultColor);
+			if (swtch.isActive()) inLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor);
 		}
 		
 		private String decoration() {
