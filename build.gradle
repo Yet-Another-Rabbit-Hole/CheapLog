@@ -7,16 +7,18 @@ plugins {
 group = 'net.YaRh'
 version = '2.0.0'
 
+gh_user = System.getenv("GITHUB_ACTOR") ? System.getenv("GITHUB_ACTOR") : project.findProperty("gpr.user")
+gh_pwd = System.getenv("GITHUB_TOKEN") ? System.getenv("GITHUB_TOKEN") : project.findProperty("gpr.key")
+
 repositories {
     mavenCentral()
-    mavenLocal()
 
     maven {
         url = uri("https://maven.pkg.github.com/Yet-Another-Rabbit-Hole/ConvenientConfiguration")
 
         credentials {
-            username = project.findProperty("gpr.user")
-            password = project.findProperty("gpr.key")
+            username = gh_user
+            password = gh_pwd
         }
     }
 }
@@ -45,9 +47,10 @@ publishing {
         maven {
             name = "GitHubPackages"
             url = "https://maven.pkg.github.com/Yet-Another-Rabbit-Hole/CheapLog"
+
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = gh_user
+                password = gh_pwd
             }
         }
     }
