@@ -28,8 +28,8 @@ public final class Config {
 	 */
 	public static Switch thread = new Switch(false);
 	
-	public static Attribute<Consumer<String>> fullLineOutput = new Attribute<>(System.out::println);
-	public static Attribute<Consumer<String>> inLineOutput = new Attribute<>(System.out::print);
+	public static Attribute<Consumer<String>> fullLineOutput = new Attribute<>(System.out::println, false);
+	public static Attribute<Consumer<String>> inLineOutput = new Attribute<>(System.out::print, false);
 	
 	public static void enableAll() {
 		Switch.enableAll();

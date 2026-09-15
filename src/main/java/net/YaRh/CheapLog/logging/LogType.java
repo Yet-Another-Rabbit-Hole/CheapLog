@@ -10,22 +10,32 @@ import net.YaRh.CheapLog.TerminalColors;
 public enum LogType{
 	/**
 	 * Default white text
+	 *
+	 * @since 1.0.0
 	 */
 	LOGGING(TerminalColors.WHITE),
 	/**
 	 * Red text
+	 *
+	 * @since 1.0.0
 	 */
 	ERROR(TerminalColors.RED),
 	/**
 	 * Yellow text
+	 *
+	 * @since 1.0.0
 	 */
 	WARNING(TerminalColors.YELLOW),
 	/**
 	 * Blue text
+	 *
+	 * @since 1.0.0
 	 */
 	INFO(TerminalColors.BLUE),
 	/**
 	 * Cyan text
+	 *
+	 * @since 1.0.0
 	 */
 	DEBUG(TerminalColors.CYAN);
 	

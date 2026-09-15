@@ -5,8 +5,6 @@ import net.YaRh.ConvConf.Attribute;
 import net.YaRh.ConvConf.Switch;
 
 import static net.YaRh.CheapLog.Config.*;
-import static net.YaRh.CheapLog.Config.fullLineOutput;
-import static net.YaRh.CheapLog.Config.inLineOutput;
 
 /**
  * A simple point that handles logging outputs
@@ -16,7 +14,9 @@ import static net.YaRh.CheapLog.Config.inLineOutput;
 public class LoggPoint {
 	
 	/**
-	 * {@linkplain TerminalColors color} that is restored after each log output
+	 * {@linkplain TerminalColors Color} that is restored after each log output
+	 *
+	 * @since 1.0.0
 	 */
 	private static final Attribute<TerminalColors> defaultColor = new Attribute<>(TerminalColors.RESET, false);
 	
@@ -53,6 +53,14 @@ public class LoggPoint {
 		);
 	}
 	
+	/**
+	 * Puts together a string of {@code %s} separated by commas
+	 */
+	private static String emptyString(int size) {
+		String str = "%s, ".repeat(Math.max(0, size));
+		return str.substring(0, str.length() - 2);
+	}
+	
 	private final LogType type;
 	private final Switch swtch;
 	
@@ -80,7 +88,7 @@ public class LoggPoint {
 	 * @since 2.1.0
 	 */
 	public void println(Object... args) {
-		if (swtch.get()) fullLineOutput.get().accept(decoration() + "".formatted(args) + defaultColor.get());
+		if (swtch.get()) fullLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
 	}
 	
 	/**
@@ -99,7 +107,7 @@ public class LoggPoint {
 	 * @since 2.1.0
 	 */
 	public void print(Object... args) {
-		if (swtch.get()) inLineOutput.get().accept(decoration() + "".formatted(args) + defaultColor.get());
+		if (swtch.get()) inLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
 	}
 	
 	/**
