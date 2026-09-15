@@ -45,6 +45,9 @@ jobs:
       - name: Build shadowJar
         run: ./gradlew shadowJar
 
+      - name: Build shadowJar
+        run: ./gradlew shadowJar
+
       - name: Publish to GitHub Packages
         run: ./gradlew publish
         env:
