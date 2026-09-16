@@ -2,6 +2,9 @@ package net.YaRh.CheapLog.logging;
 
 import net.YaRh.ConvConf.Switch;
 
+/**
+ * @since 2.2.0
+ */
 public class Logger {
 	
 	public final Switch logging = new Switch(true);
@@ -22,5 +25,27 @@ public class Logger {
 		warn.id.set(id);
 		debug.id.set(id);
 		error.id.set(id);
+	}
+	
+	/**
+	 * @since 3.0.0
+	 */
+	public void enable() {
+		logging.enable();
+		information.enable();
+		errors.enable();
+		warning.enable();
+		debugging.enable();
+	}
+	
+	/**
+	 * @since 3.0.0
+	 */
+	public void disable() {
+		logging.disable();
+		information.disable();
+		errors.disable();
+		warning.disable();
+		debugging.disable();
 	}
 }
