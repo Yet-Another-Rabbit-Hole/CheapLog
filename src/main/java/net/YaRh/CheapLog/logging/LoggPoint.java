@@ -136,6 +136,6 @@ public class LoggPoint {
 	private String name() {
 		if (!ids.get()) return "";
 		if (id.get().isBlank()) return "";
-		return "[" + id + "] ";
+		return "[" + id.get() + "] ";
 	}
 }
