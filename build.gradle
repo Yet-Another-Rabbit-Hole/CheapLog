@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'net.YaRh'
-version = '2.1.1'
+version = '2.2.0'
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'net.YaRh:convconf:1.1.1'
+    implementation 'net.YaRh:convconf:1.2.0'
 }
 
 test {

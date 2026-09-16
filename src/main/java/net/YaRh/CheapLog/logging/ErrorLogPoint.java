@@ -9,17 +9,28 @@ import net.YaRh.ConvConf.Switch;
  */
 public final class ErrorLogPoint extends LoggPoint {
 	/**
+	 * @since 2.2.0
+	 */
+	public ErrorLogPoint(LogType type, Switch swtch, String id) {
+		super(type, swtch, id);
+	}
+	/**
 	 * @since 1.0.0
 	 */
 	public ErrorLogPoint(LogType pType, Switch pSwitch) {
 		super(pType, pSwitch);
 	}
-	
 	/**
 	 * @since 2.1.0
 	 */
 	public ErrorLogPoint(Switch pSwitch) {
 		super(LogType.ERROR, pSwitch);
+	}
+	/**
+	 * @since 2.1.0
+	 */
+	public ErrorLogPoint(Switch pSwitch, String id) {
+		super(LogType.ERROR, pSwitch, id);
 	}
 	
 	/**

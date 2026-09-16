@@ -14,13 +14,6 @@ import static net.YaRh.CheapLog.Config.*;
 public class LoggPoint {
 	
 	/**
-	 * {@linkplain TerminalColors Color} that is restored after each log output
-	 *
-	 * @since 1.0.0
-	 */
-	private static final Attribute<TerminalColors> defaultColor = new Attribute<>(TerminalColors.RESET, false);
-	
-	/**
 	 * @since 1.0.0
 	 */
 	private static String location() {
@@ -65,55 +58,84 @@ public class LoggPoint {
 	private final Switch swtch;
 	
 	/**
+	 * @since 2.2.0
+	 */
+	public final Attribute<String> id = new Attribute<>("Master");
+	
+	/**
+	 * @since 2.2.0
+	 */
+	public LoggPoint(LogType type, Switch swtch, String id) {
+		this.type = type;
+		this.swtch = swtch;
+		this.id.set(id);
+	}
+	/**
 	 * @since 1.0.0
 	 */
 	public LoggPoint(LogType pType, Switch pSwitch) {
 		this.type = pType;
 		this.swtch = pSwitch;
+		this.id.immutable();
 	}
 	
 	/**
 	 * @since 1.0.0
 	 */
 	public void println(String msg) {
-		if (swtch.get()) fullLineOutput.get().accept(decoration() + msg + defaultColor.get());
+		if (!swtch.get()) return;
+		fullLineOutput.get().accept(decoration() + msg + defaultColor.get());
 	}
 	/**
 	 * @since 1.0.0
 	 */
 	public void println(String msg, Object... args) {
-		if (swtch.get()) fullLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
+		if (!swtch.get()) return;
+		fullLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
 	}
 	/**
 	 * @since 2.1.0
 	 */
 	public void println(Object... args) {
-		if (swtch.get()) fullLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
+		if (!swtch.get()) return;
+		fullLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
 	}
 	
 	/**
 	 * @since 1.0.0
 	 */
 	public void print(String msg) {
-		if (swtch.get()) inLineOutput.get().accept(decoration() + msg + defaultColor.get());
+		if (!swtch.get()) return;
+		inLineOutput.get().accept(decoration() + msg + defaultColor.get());
 	}
 	/**
 	 * @since 1.0.0
 	 */
 	public void print(String msg, Object... args) {
-		if (swtch.get()) inLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
+		if (!swtch.get()) return;
+		inLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
 	}
 	/**
 	 * @since 2.1.0
 	 */
 	public void print(Object... args) {
-		if (swtch.get()) inLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
+		if (!swtch.get()) return;
+		inLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
 	}
 	
 	/**
 	 * @since 1.0.0
 	 */
 	private String decoration() {
-		return TerminalColors.RESET + location() + type.color() + thread() + "[" + type.name() + "] ";
+		return TerminalColors.RESET + location() + type.color() + thread() + name() + "[" + type.name() + "] ";
+	}
+	
+	/**
+	 * @since 2.2.0
+	 */
+	private String name() {
+		if (!ids.get()) return "";
+		if (id.get().isBlank()) return "";
+		return "[" + id + "] ";
 	}
 }
