@@ -69,6 +69,7 @@ public class LoggPoint {
 		this.type = type;
 		this.swtch = swtch;
 		this.id.set(id);
+		this.id.immutable();
 	}
 	/**
 	 * @since 1.0.0
