@@ -3,6 +3,8 @@ package net.YaRh.CheapLog.logging;
 import net.YaRh.ConvConf.Switch;
 import net.YaRh.ConvConf.SwitchBox;
 
+import java.util.function.Consumer;
+
 /**
  * @since 2.2.0
  */
@@ -42,5 +44,27 @@ public class Logger {
 	 */
 	public void disable() {
 		switches.disableAll();
+	}
+	
+	/**
+	 * @since 3.2.0
+	 */
+	public void setFullLineOutputs(Consumer<String> FLO) {
+		log.fullLineOutput.set(FLO);
+		info.fullLineOutput.set(FLO);
+		warn.fullLineOutput.set(FLO);
+		debug.fullLineOutput.set(FLO);
+		error.fullLineOutput.set(FLO);
+	}
+	
+	/**
+	 * @since 3.2.0
+	 */
+	public void setInLineOutputs(Consumer<String> ILO) {
+		log.inLineOutput.set(ILO);
+		info.inLineOutput.set(ILO);
+		warn.inLineOutput.set(ILO);
+		debug.inLineOutput.set(ILO);
+		error.inLineOutput.set(ILO);
 	}
 }

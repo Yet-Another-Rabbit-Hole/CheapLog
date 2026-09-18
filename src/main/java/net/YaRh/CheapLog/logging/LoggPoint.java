@@ -1,8 +1,14 @@
 package net.YaRh.CheapLog.logging;
 
+import net.YaRh.CheapLog.Config;
 import net.YaRh.CheapLog.TerminalColors;
 import net.YaRh.ConvConf.Attribute;
+import net.YaRh.ConvConf.OverridableDefault;
 import net.YaRh.ConvConf.Switch;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static net.YaRh.CheapLog.Config.*;
 
@@ -12,6 +18,29 @@ import static net.YaRh.CheapLog.Config.*;
  * @since 1.0.0
  */
 public class LoggPoint {
+	
+	/**
+	 * @since 3.2.0
+	 */
+	private static final List<LoggPoint> logPoints = new ArrayList<>();
+	
+	/**
+	 * Exposed core, do not use.
+	 *
+	 * @since 3.2.0
+	 */
+	public static void changeDefaultFLO(Consumer<String> newDefault) {
+		logPoints.forEach(l -> l.fullLineOutput.updater().accept(newDefault));
+	}
+	
+	/**
+	 * Exposed core, do not use.
+	 *
+	 * @since 3.2.0
+	 */
+	public static void changeDefaultILO(Consumer<String> newDefault) {
+		logPoints.forEach(l -> l.inLineOutput.updater().accept(newDefault));
+	}
 	
 	/**
 	 * @since 1.0.0
@@ -57,17 +86,20 @@ public class LoggPoint {
 	private final LogType type;
 	private final Switch swtch;
 	
-	/**
-	 * @since 2.2.0
-	 */
-	public final Attribute<String> id = new Attribute<>("Master");
+	public final OverridableDefault<Consumer<String>> fullLineOutput = new OverridableDefault<>(Config.fullLineOutput.get());
+	public final OverridableDefault<Consumer<String>> inLineOutput = new OverridableDefault<>(Config.inLineOutput.get());
 	
 	/**
 	 * @since 2.2.0
 	 */
-	public LoggPoint(LogType type, Switch swtch, String id) {
+	public final Attribute<String> id = new Attribute<>();
+	
+	/**
+	 * @since 2.2.0
+	 */
+	public LoggPoint(LogType type, Switch pSwitch, String id) {
 		this.type = type;
-		this.swtch = swtch;
+		this.swtch = pSwitch;
 		this.id.set(id);
 		this.id.immutable();
 	}
@@ -77,6 +109,16 @@ public class LoggPoint {
 	public LoggPoint(LogType pType, Switch pSwitch) {
 		this.type = pType;
 		this.swtch = pSwitch;
+		this.id.immutable();
+	}
+	/**
+	 * A {@link LoggPoint} initialised like this will always logg
+	 *
+	 * @since 3.2.0
+	 */
+	public LoggPoint(LogType pType) {
+		this.type = pType;
+		this.swtch = new Switch(true);
 		this.id.immutable();
 	}
 	
@@ -128,15 +170,22 @@ public class LoggPoint {
 	 * @since 1.0.0
 	 */
 	private String decoration() {
-		return TerminalColors.RESET + location() + type.color() + thread() + name() + "[" + type.name() + "] ";
+		return TerminalColors.RESET + location() + color() + thread() + id() + "[" + type.name() + "] ";
 	}
 	
 	/**
 	 * @since 2.2.0
 	 */
-	private String name() {
-		if (!ids.get()) return "";
-		if (id.get().isBlank()) return "";
+	private String id() {
+		if (!ids.get() || id.get() == null) return "";
 		return "[" + id.get() + "] ";
+	}
+	
+	/**
+	 * @since 3.2.0
+	 */
+	private String color() {
+		if (!color.get()) return "";
+		return type.color().toString();
 	}
 }

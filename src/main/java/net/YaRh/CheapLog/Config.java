@@ -1,5 +1,6 @@
 package net.YaRh.CheapLog;
 
+import net.YaRh.CheapLog.logging.LoggPoint;
 import net.YaRh.ConvConf.Attribute;
 import net.YaRh.ConvConf.Switch;
 import net.YaRh.ConvConf.SwitchBox;
@@ -36,8 +37,19 @@ public final class Config {
 	 */
 	public static final Switch ids = switches.add(false);
 	
-	public static final Attribute<Consumer<String>> fullLineOutput = new Attribute<>(System.out::println);
-	public static final Attribute<Consumer<String>> inLineOutput = new Attribute<>(System.out::print);
+	/**
+	 * Determines if the log should be colored.
+	 * <p>
+	 * Disable if your terminal does not support color.
+	 *
+	 * @since 3.2.0
+	 */
+	public static final Switch color = switches.add(true);
+	
+	public static final Attribute<Consumer<String>> fullLineOutput =
+			new Attribute<>(System.out::println, LoggPoint::changeDefaultFLO);
+	public static final Attribute<Consumer<String>> inLineOutput =
+			new Attribute<>(System.out::print, LoggPoint::changeDefaultILO);
 	/**
 	 * {@linkplain TerminalColors Color} that is restored after each log output
 	 *
