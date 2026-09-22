@@ -67,4 +67,20 @@ public class Logger {
 		debug.inLineOutput.set(ILO);
 		error.inLineOutput.set(ILO);
 	}
+	
+	public void log(String msg) {
+		log.println(msg);
+	}
+	public void info(String msg) {
+		info.println(msg);
+	}
+	public void warn(String msg) {
+		warn.println(msg);
+	}
+	public void debug(String msg) {
+		debug.println(msg);
+	}
+	public void error(String msg) {
+		error.println(msg);
+	}
 }
