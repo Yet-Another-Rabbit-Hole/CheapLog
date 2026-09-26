@@ -1,5 +1,6 @@
 package net.YaRh.CheapLog;
 
+import net.YaRh.CheapLog.ansi.AnsiColor;
 import net.YaRh.CheapLog.logging.LoggPoint;
 import net.YaRh.ConvConf.Attribute;
 import net.YaRh.ConvConf.Switch;
@@ -44,18 +45,18 @@ public final class Config {
 	 *
 	 * @since 3.2.0
 	 */
-	public static final Switch color = switches.add(true);
+	public static final Switch color = new Switch(true);
 	
 	public static final Attribute<Consumer<String>> fullLineOutput =
 			new Attribute<>(System.out::println, LoggPoint::changeDefaultFLO);
 	public static final Attribute<Consumer<String>> inLineOutput =
 			new Attribute<>(System.out::print, LoggPoint::changeDefaultILO);
 	/**
-	 * {@linkplain TerminalColors Color} that is restored after each log output
+	 * {@linkplain AnsiColor Color} that is restored after each log output
 	 *
 	 * @since 2.2.0
 	 */
-	public static final Attribute<TerminalColors> defaultColor = new Attribute<>(TerminalColors.RESET);
+	public static final Attribute<AnsiColor> defaultColor = new Attribute<>(AnsiColor.RESET);
 	
 	public static void enableAll() {
 		switches.enableAll();
