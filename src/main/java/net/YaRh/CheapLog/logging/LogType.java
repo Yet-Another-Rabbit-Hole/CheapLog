@@ -1,6 +1,6 @@
 package net.YaRh.CheapLog.logging;
 
-import net.YaRh.CheapLog.TerminalColors;
+import net.YaRh.CheapLog.ansi.AnsiColor;
 
 /**
  * The type of log output, determines the color and info in {@code [..]} braces
@@ -13,42 +13,42 @@ public enum LogType{
 	 *
 	 * @since 1.0.0
 	 */
-	LOGGING(TerminalColors.WHITE),
+	LOGGING(AnsiColor.WHITE),
 	/**
 	 * Red text
 	 *
 	 * @since 1.0.0
 	 */
-	ERROR(TerminalColors.RED),
+	ERROR(AnsiColor.RED),
 	/**
 	 * Yellow text
 	 *
 	 * @since 1.0.0
 	 */
-	WARNING(TerminalColors.YELLOW),
+	WARNING(AnsiColor.YELLOW),
 	/**
 	 * Blue text
 	 *
 	 * @since 1.0.0
 	 */
-	INFO(TerminalColors.BLUE),
+	INFO(AnsiColor.BLUE),
 	/**
 	 * Cyan text
 	 *
 	 * @since 1.0.0
 	 */
-	DEBUG(TerminalColors.CYAN);
+	DEBUG(AnsiColor.CYAN);
 	
-	private final TerminalColors color;
+	private final AnsiColor color;
 	
-	LogType(TerminalColors color) {
+	LogType(AnsiColor color) {
 		this.color = color;
 	}
 	
 	/**
-	 * Returns the associated color as {@link TerminalColors}
+	 * Returns the associated color as {@link AnsiColor}
 	 */
-	public TerminalColors color() {
+	public AnsiColor color() {
 		return color;
 	}
 }

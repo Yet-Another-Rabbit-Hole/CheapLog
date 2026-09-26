@@ -1,7 +1,7 @@
 package net.YaRh.CheapLog.logging;
 
 import net.YaRh.CheapLog.Config;
-import net.YaRh.CheapLog.TerminalColors;
+import net.YaRh.CheapLog.ansi.AnsiColor;
 import net.YaRh.ConvConf.Attribute;
 import net.YaRh.ConvConf.OverridableDefault;
 import net.YaRh.ConvConf.Switch;
@@ -102,6 +102,8 @@ public class LoggPoint {
 		this.swtch = pSwitch;
 		this.id.set(id);
 		this.id.immutable();
+		
+		logPoints.add(this);
 	}
 	/**
 	 * @since 1.0.0
@@ -110,6 +112,8 @@ public class LoggPoint {
 		this.type = pType;
 		this.swtch = pSwitch;
 		this.id.immutable();
+		
+		logPoints.add(this);
 	}
 	/**
 	 * A {@link LoggPoint} initialised like this will always logg
@@ -120,6 +124,8 @@ public class LoggPoint {
 		this.type = pType;
 		this.swtch = new Switch(true);
 		this.id.immutable();
+		
+		logPoints.add(this);
 	}
 	
 	/**
@@ -127,21 +133,21 @@ public class LoggPoint {
 	 */
 	public void println(String msg) {
 		if (!swtch.get()) return;
-		fullLineOutput.get().accept(decoration() + msg + defaultColor.get());
+		fullLineOutput.get().accept(decoration() + msg + defaultColor());
 	}
 	/**
 	 * @since 1.0.0
 	 */
 	public void println(String msg, Object... args) {
 		if (!swtch.get()) return;
-		fullLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
+		fullLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor());
 	}
 	/**
 	 * @since 2.1.0
 	 */
 	public void println(Object... args) {
 		if (!swtch.get()) return;
-		fullLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
+		fullLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor());
 	}
 	
 	/**
@@ -149,28 +155,28 @@ public class LoggPoint {
 	 */
 	public void print(String msg) {
 		if (!swtch.get()) return;
-		inLineOutput.get().accept(decoration() + msg + defaultColor.get());
+		inLineOutput.get().accept(decoration() + msg + defaultColor());
 	}
 	/**
 	 * @since 1.0.0
 	 */
 	public void print(String msg, Object... args) {
 		if (!swtch.get()) return;
-		inLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor.get());
+		inLineOutput.get().accept(decoration() + msg.formatted(args) + defaultColor());
 	}
 	/**
 	 * @since 2.1.0
 	 */
 	public void print(Object... args) {
 		if (!swtch.get()) return;
-		inLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor.get());
+		inLineOutput.get().accept(decoration() + emptyString(args.length).formatted(args) + defaultColor());
 	}
 	
 	/**
 	 * @since 1.0.0
 	 */
 	private String decoration() {
-		return TerminalColors.RESET + location() + color() + thread() + id() + "[" + type.name() + "] ";
+		return (color.get() ? AnsiColor.RESET : "") + location() + color() + thread() + id() + "[" + type.name() + "] ";
 	}
 	
 	/**
@@ -187,5 +193,12 @@ public class LoggPoint {
 	private String color() {
 		if (!color.get()) return "";
 		return type.color().toString();
+	}
+	
+	/**
+	 * @since 3.4.0
+	 */
+	private String defaultColor() {
+		return color.get() ? defaultColor.get().toString() : "";
 	}
 }

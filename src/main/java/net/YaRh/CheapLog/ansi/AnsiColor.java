@@ -1,68 +1,68 @@
-package net.YaRh.CheapLog;
+package net.YaRh.CheapLog.ansi;
 
 /**
  * Scancodes that are interpreted by shells
  *
  * @since 1.0.0
  */
-public enum TerminalColors {
+public enum AnsiColor implements AnsiCode {
 	/**
 	 * Color code 31
 	 *
 	 * @since 1.0.0
 	 */
-	RED("\u001B[31m"),
+	RED(31),
 	/**
 	 * Color code 32
 	 *
 	 * @since 1.0.0
 	 */
-	GREEN("\u001B[32m"),
+	GREEN(32),
 	/**
 	 * Color code 33
 	 *
 	 * @since 1.0.0
 	 */
-	YELLOW("\u001B[33m"),
+	YELLOW(33),
 	/**
 	 * Color code 34
 	 *
 	 * @since 1.0.0
 	 */
-	BLUE("\u001B[34m"),
+	BLUE(34),
 	/**
 	 * Color code 35
 	 *
 	 * @since 1.0.0
 	 */
-	MAGENTA("\u001B[35m"),
+	MAGENTA(35),
 	/**
 	 * Color code 36
 	 *
 	 * @since 1.0.0
 	 */
-	CYAN("\u001B[36m"),
+	CYAN(36),
 	/**
 	 * Color code 37
 	 *
 	 * @since 1.0.0
 	 */
-	WHITE("\u001B[37m"),
+	WHITE(37),
 	/**
 	 * Color code 0
 	 *
 	 * @since 1.0.0
 	 */
-	RESET("\u001B[0m");
+	RESET(0);
 	
-	private final String code;
+	private final int code;
 	
-	TerminalColors(String code) {
+	AnsiColor(int code) {
 		this.code = code;
 	}
 	
 	@Override
 	public String toString() {
-		return code;
+		return "\u001B[%dm".formatted(code);
 	}
 }
